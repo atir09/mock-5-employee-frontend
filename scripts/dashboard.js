@@ -85,6 +85,9 @@ function addEmployee(event) {
     const department = document.getElementById('department').value;
     const salary = document.getElementById('salary').value;
 
+    
+ 
+
     fetch(`${URL}/employees`, {
         method: 'POST',
         headers: {
@@ -246,11 +249,11 @@ function displayPagination() {
 
 const filterForm = document.getElementById('filter-form');
 const sortSelect = document.getElementById('sort-select');
-const searchInput = document.getElementById('first-name');
+const searchInput = document.getElementById('filter-first-name');
 
 function filterEmployees() {
 
-    const department = document.getElementById("department").value;
+    const department = document.getElementById("filter-department").value;
   
     const params = new URLSearchParams();
     params.append('department', department);
