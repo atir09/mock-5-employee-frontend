@@ -246,7 +246,7 @@ function displayPagination() {
 
 const filterForm = document.getElementById('filter-form');
 const sortSelect = document.getElementById('sort-select');
-const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('first-name');
 
 function filterEmployees() {
 
@@ -254,6 +254,7 @@ function filterEmployees() {
   
     const params = new URLSearchParams();
     params.append('department', department);
+    console.log(typeof(department))
   
     Render(`${URL}/employees/filter?${params.toString()}`)
       
@@ -269,10 +270,10 @@ function filterEmployees() {
       
   }
   
-  function searchEmployees(event) {
-    event.preventDefault();
+  function searchEmployees() {
+
   
-    const firstName = searchForm.firstName.value;
+    const firstName = searchInput.value.toLowerCase();
   
     const params = new URLSearchParams();
     params.append('firstName', firstName);
