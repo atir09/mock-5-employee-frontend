@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="login-box">
+            <div>
+                <h2 style="text-align: center;" id="title">Login Form</h2>
+            </div>
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <form id="login" class="input-group">
+                <input type="email" class="input-field" placeholder="Enter E-mail" name="email" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="password" required>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+            <form id="register" class="input-group">
+                <input type="email" class="input-field" placeholder="Enter E-mail" name="email" required>
+                <input type="password" class="input-field" placeholder="Enter Password" name="password" required>
+                <input type="password" class="input-field" placeholder="Confirm Password" name="cpassword" required>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="./scripts/index.js"></script>
+</html>
