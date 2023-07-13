@@ -9,77 +9,102 @@
 </head>
 
 <body>
-    <div id="add-employee-form" style="display: none;">
-        <h2>Add Employee</h2>
-        <form id="employee-form">
-            <div>
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" required>
-            </div>
-            <div>
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
-            </div>
-            <div>
-                <label for="department">Department:</label>
-                <select id="department" required>
-                    <option value="Tech">Tech</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Operations">Operations</option>
-                </select>
-            </div>
-            <div>
-                <label for="salary">Salary:</label>
-                <input type="number" id="salary" required>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
 
-    <div id="edit-employee" style="display: none;">
-        <h2>Edit Employee</h2>
-        <form id="edit-employee-form">
-            <div>
-                <label for="first-name">First Name:</label>
-                <input type="text" id="e-first-name" required>
-            </div>
-            <div>
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="e-last-name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="e-email" required>
-            </div>
-            <div>
-                <label for="department">Department:</label>
-                <select id="e-department" required>
-                    <option value="Tech">Tech</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Operations">Operations</option>
-                </select>
-            </div>
-            <div>
-                <label for="salary">Salary:</label>
-                <input type="number" id="e-salary" required>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-
-
-    <h2>Employee Management-Software</h2>
+    <h2 style="text-align: center;">Employee Management-Software</h2>
     <div class="buttons-1">
         <button id="add-employee-btn">Add Employee</button>
-        <button>Logout</button>
+        <button onclick="LogOut()">Logout</button>
     </div>
 
+    <div id="filters" >
+        <form id="filter-form">
+          <label for="department">Filter by Department:</label>
+          <select id="department" onchange="filterEmployees()">
+            <option value="">All Departments</option>
+            <option value="Tech">Tech</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Operations">Operations</option>
+          </select>
+        </form>
+        <div>
+          <label for="sort-select">Sort by Salary:</label>
+          <select id="sort-select" onchange="sortEmployees()">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+        <form id="search-form">
+          <label for="first-name">Search by First Name:</label>
+          <input type="text" id="first-name" onkeyup="searchEmployees()">
+        </form>
+      </div>
+
+    <div style="display: flex;">
+        <div id="add-employee-form" style="display: none;">
+            <h2>Add Employee</h2>
+            <form id="employee-form">
+                <div>
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" required>
+                </div>
+                <div>
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div>
+                    <label for="department">Department:</label>
+                    <select id="department" required>
+                        <option value="Tech">Tech</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="salary" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="edit-employee" style="display: none;">
+            <h2>Edit Employee</h2>
+            <form id="edit-employee-form">
+                <div>
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="e-first-name" required>
+                </div>
+                <div>
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="e-last-name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="e-email" required>
+                </div>
+                <div>
+                    <label for="department">Department:</label>
+                    <select id="e-department" required>
+                        <option value="Tech">Tech</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="e-salary" required>
+                </div>
+                <button type="submit" id="edit-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
     <main>
-        <table>
+        <table border="1">
             <thead>
                 <th>No.</th>
                 <th>First Name</th>
@@ -93,6 +118,9 @@
 
             </tbody>
         </table>
+
+
+        <div id="pagination"></div>
     </main>
 </body>
 <script src="../scripts/dashboard.js"></script>

@@ -1,4 +1,4 @@
-const URL="http://localhost:8080"
+const URL="https://mock-4-employee-backend.onrender.com"
 
 var loginBlock = document.getElementById("login");
 var registerBlock = document.getElementById("register");

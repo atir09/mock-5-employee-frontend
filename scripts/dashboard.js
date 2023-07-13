@@ -1,9 +1,15 @@
-const URL = "http://localhost:8080"
+const URL = "https://mock-4-employee-backend.onrender.com"
+let token=JSON.parse(localStorage.getItem("token"))
 
+if(!token){
+    alert("Plz Log in")
+    window.location="../index.html"
+}
 
+let currentPage = 1;
+let totalPages = 1;
 
-
-Render(`${URL}/employees`)
+Render(`${URL}/employees?page=${currentPage}`)
 function Render(url) {
     fetch(url)
         .then(async (res) => {
@@ -11,13 +17,17 @@ function Render(url) {
                 let data = await res.json()
                 return { data, status: res.status }
             } catch (error) {
-                console.log(error)
+                console.log(error.message)
                 alert(error)
             }
         })
         .then((res) => {
+            console.log(res)
             if (res.status == 200) {
                 RenderTable(res.data)
+                currentPage=res.data.page
+                totalPages=res.data.totalPages
+                displayPagination();
             } else {
                 alert(res.data.msg)
             }
@@ -26,7 +36,6 @@ function Render(url) {
 
 function RenderTable(data) {
     let list = CreateList(data.employees, data.page)
-    console.log(list)
     document.getElementById("data-cont").innerHTML = list.join(" ")
 }
 
@@ -41,7 +50,7 @@ function CreateList(employees, page) {
         <td>${el.email}</td>
         <td>${el.department}</td>
         <td>${el.salary}</td>
-        <td> <button class="Edit-btn" onclick="Edit(${el._id},${el.firstName},${el.lastName},${el.email},${el.email},${el.department},${el.salary})"> Edit </button><button class="Del-btn" onclick="Delete(${el._id}") >Delete</button></td>
+        <td> <button class="Edit-btn" onclick="Edit('${el._id}','${el.firstName}','${el.lastName}','${el.email}','${el.department}','${el.salary}')"> Edit </button><button class="Del-btn" onclick="Delete('${el._id}')" >Delete</button></td>
     </tr>
         `
     })
@@ -127,6 +136,7 @@ function Edit(id,firstName,lastName,email,department,salary) {
     document.getElementById('e-email').value=email;
     document.getElementById('e-department').value=department;
     document.getElementById('e-salary').value=salary;
+    document.getElementById("edit-submit").setAttribute("data-id",id)
 }
 
 function hideAddEmployeeForm() {
@@ -141,8 +151,9 @@ function editEmployee(event) {
     const email = document.getElementById('e-email').value;
     const department = document.getElementById('e-department').value;
     const salary = document.getElementById('e-salary').value;
+    const id=document.getElementById("edit-submit").dataset.id
 
-    fetch(`${URL}/employees`, {
+    fetch(`${URL}/employees/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -175,3 +186,106 @@ function editEmployee(event) {
 }
 
 editemployeeForm.addEventListener('submit', editEmployee);
+
+
+
+// ......................Delete A Employee.................
+
+function Delete(id){
+    let res=window.confirm("Do You Really Want to Delete The User?")
+    if(res){
+        fetch(`${URL}/employees/${id}`, {
+            method: 'DELETE'
+        })
+            .then(async (res) => {
+                try {
+                    let data = await res.json()
+                    return { data, status: res.status }
+                } catch (error) {
+                    console.log(error)
+                    alert(error)
+                }
+    
+            })
+            .then((res) => {
+                if (res.status == 201) {
+                    alert(res.data.msg)
+                    Render(`${URL}/employees`)
+                }else{
+                    alert(res.data.msg)
+                }
+    
+            })
+            .catch((error) => console.error(error));
+    }
+}
+
+// ...............Pagination .................................
+
+const pagination = document.getElementById('pagination');
+
+function displayPagination() {
+    pagination.innerHTML = '';
+  
+    for (let i = 1; i <= totalPages; i++) {
+      const pageLink = document.createElement('button');
+      pageLink.classList.add('page-link');
+      pageLink.innerText = i;
+      if (i === currentPage) {
+        pageLink.classList.add('active');
+      }
+      pageLink.addEventListener('click', () => {
+        Render(`${URL}/employees?page=${i}`)
+      });
+  
+      pagination.appendChild(pageLink);
+    }
+  }
+
+//   ...........Search,Filter And Sort .......................
+
+const filterForm = document.getElementById('filter-form');
+const sortSelect = document.getElementById('sort-select');
+const searchForm = document.getElementById('search-form');
+
+function filterEmployees() {
+
+    const department = document.getElementById("department").value;
+  
+    const params = new URLSearchParams();
+    params.append('department', department);
+  
+    Render(`${URL}/employees/filter?${params.toString()}`)
+      
+  }
+  
+  function sortEmployees() {
+    const sortBy = sortSelect.value;
+  
+    const params = new URLSearchParams();
+    params.append('sortBy', sortBy);
+  
+    Render(`${URL}/employees/sort?${params.toString()}`)
+      
+  }
+  
+  function searchEmployees(event) {
+    event.preventDefault();
+  
+    const firstName = searchForm.firstName.value;
+  
+    const params = new URLSearchParams();
+    params.append('firstName', firstName);
+  
+    Render(`${URL}/employees/search?${params.toString()}`)
+
+  }
+  
+  
+
+// ....................LogOut......................
+
+function LogOut(){
+    localStorage.clear()
+    window.location="../index.html"
+}

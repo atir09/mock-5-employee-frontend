@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    list-style: none;
+}
+
+#add-employee-form,#edit-employee{
+    width: 40%;
+    border: 2px solid blue;
+    margin: auto;
+    text-align: center;
+}
+button{
+    padding: 6px;
+    margin: 5px ;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.buttons-1{
+    text-align: center;
+}
+.buttons-1 button:first-child{
+    background-color: blue;
+    color: white;
+    border:1px solid black ;
+}
+
+#add-employee-form h2,#edit-employee h2{
+    margin-bottom: 10px;
+}
+
+#add-employee-form input,#add-employee-form select,#edit-employee input,#edit-employee select{
+    width: 250px;
+    margin-bottom: 5px;
+}
+
+/* .......................Table CSS *.........................*/
+
+table{
+    border-spacing: 0;
+    margin: auto;
+    width: 80;
+    margin-top: 30px;
+}
+th{
+    background-color: rgb(161, 207, 207);
+}
+
+th,td{
+    padding: 5px;
+}
+
+tr:nth-child(odd){
+    background-color:lightgray;
+}
+
+td:last-child{
+    min-width: 120px;
+}
+.Edit-btn,.Del-btn{
+    padding: 4px;
+    min-width: 50px;
+    border-radius: 5px;
+    border: none;
+}
+
+.Edit-btn{
+    background-color:lightskyblue;
+}
+
+.Del-btn{
+    background-color: red;
+    color: white;
+}
+
+/* PAgination */
+
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+  }
+  
+  .page-link {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #eee;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .page-link.active {
+    background-color: #ccc;
+  }
+
+  #filters{
+    display: flex;
+    justify-content: space-around;
+  }
