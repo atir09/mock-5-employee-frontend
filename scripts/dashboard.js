@@ -49,7 +49,7 @@ function CreateList(employees, page) {
         <td>${el.lastName}</td>
         <td>${el.email}</td>
         <td>${el.department}</td>
-        <td>${el.salary}</td>
+        <td>RS. ${el.salary}</td>
         <td> <button class="Edit-btn" onclick="Edit('${el._id}','${el.firstName}','${el.lastName}','${el.email}','${el.department}','${el.salary}')"> Edit </button><button class="Del-btn" onclick="Delete('${el._id}')" >Delete</button></td>
     </tr>
         `
